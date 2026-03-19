@@ -1,3 +1,6 @@
+from datetime import datetime
+import pytz
+
 def parse_list(s: str):
     try:
         return [float(x.strip()) for x in s.split(",") if x.strip() != ""]
@@ -6,13 +9,24 @@ def parse_list(s: str):
 
 def weighted_average(grades, weights=None):
     if not grades:
-        return None
-    if weights and len(weights) == len(grades):
-        tot = sum(weights)
-        if tot == 0:
-            return None
-        return sum(g * w for g, w in zip(grades, weights)) / tot
-    return sum(grades) / len(grades)
+        avg = None
+    else:
+        if weights and len(weights) == len(grades):
+            tot = sum(weights)
+            if tot == 0:
+                avg = None
+            else:
+                avg = sum(g * w for g, w in zip(grades, weights)) / tot
+        else:
+            avg = sum(grades) / len(grades)
+
+    return {
+        "timestamp": datetime.now(pytz.timezone("Europe/Zurich")),
+        "grades": grades,
+        "weights": weights if weights is not None else [],
+        "average": round(avg, 2) if avg is not None else None,
+        "label": grade_label(avg) if avg is not None else "",
+    }
 
 def grade_label(avg):
     if avg is None:
