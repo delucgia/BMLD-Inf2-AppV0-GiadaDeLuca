@@ -6,6 +6,12 @@ import altair as alt
 
 st.title("Notenrechner (CH‑Skala: 6=best, 4=Bestanden)")
 st.write("Noten kommasepariert eingeben. Optional Gewichte (kommasepariert). Beispiel: Noten: 5,4.5,3.5  Gewichte: 2,1,1")
+st.info(
+    "Hinweis: Die App speichert jede Berechnung als Eintrag und ist vor allem dafür "
+    "gedacht, längerfristige Verläufe (z. B. Semester‑Gesamtdurchschnitte) zu verfolgen. "
+    "Bei sehr häufigen, täglichen Einzelberechnungen entstehen viele Einträge und die "
+    "Auswertung/Visualisierung verliert an Aussagekraft. Für kurzfristige Tests oder "
+    "Probe‑Berechnungen ist diese App weniger geeignet.")
 
 with st.form("noten_form"):
     grades_s = st.text_input("Noten (kommasepariert)", value="5,4.5,4")
